@@ -8,18 +8,16 @@ const app = express();
 const userRoutes = require("./routes/routes");
 //settings
 
-app.set("port", 3000);
-
 //middlewares
-
+app.use(cors());
 app.use(morgan("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 //routes
-app.use(userRoutes);
+app.use("/api", require("./routes/routes"));
 
 //run
-app.listen(app.get("port"), () => {
-  console.log("Server corriendo en puerto 3000");
+app.listen(process.env.PORT, () => {
+  console.log(`Servidor corriendo en puerto ${process.env.PORT}`);
 });

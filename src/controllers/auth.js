@@ -9,12 +9,13 @@ const login = async (req, res = response) => {
   try {
     const sql = `select username, password, id from database_user where username='${user}'`;
     let result = await BD.Open(sql, [], false);
-    const userId = result.rows[0][2];
+    const usuario = [result.rows[0][0], result.rows[0][1], result.rows[0][2]];
+    console.log(usuario[0], usuario[1], usuario[2]);
 
-    if (!user) {
+    if (!usuario) {
+      console.log("asd");
       return res.status(400).json({
-        ok: false,
-        msg: "Error, usuario o contraseña incorrectos",
+        usuario: { ok: false, msg: "Error, usuario o contraseña incorrectos" },
       });
     }
 
@@ -41,10 +42,10 @@ const login = async (req, res = response) => {
         usuario: { ok: false, msg: "Error, usuario o contraseña incorrectos." },
       });
     }
-    const token = await generarJWT(userId);
+    const token = await generarJWT(usuario[2]);
 
     res.status(200).json({
-      usuario: { ok: true, msg: "Sesión Iniciada." },
+      usuario: usuario,
       token: token,
     });
   } catch (error) {

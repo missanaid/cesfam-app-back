@@ -11,8 +11,6 @@ const {
 const { check } = require("express-validator");
 const { validarJWT } = require("../middlewares/validar-jwt");
 
-router.get("/", validarJWT, revalidarToken);
-
 router.get("/entrega", entrega);
 router.get("/receta", receta);
 
@@ -28,5 +26,7 @@ router.post(
 router.get("/stock", stock);
 
 router.get("/paciente", paciente);
+
+router.get("/", validarJWT, revalidarToken);
 
 module.exports = router;
