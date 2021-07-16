@@ -7,6 +7,7 @@ const {
   paciente,
   receta,
   revalidarToken,
+  merma,
 } = require("../controllers/auth");
 const { check } = require("express-validator");
 const { validarJWT } = require("../middlewares/validar-jwt");
@@ -24,6 +25,7 @@ router.post(
 );
 
 router.get("/stock", stock);
+router.get("/merma", merma);
 
 router.get("/paciente", paciente);
 
